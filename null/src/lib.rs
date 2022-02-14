@@ -1,9 +1,6 @@
 //! # Assignment
 //! Ian Guy 2022 HW4
-
-//!
-//! * Fix the `capacity()` method to correctly report the
-//!   capacity. Be careful here!
+//! Removing the hints up here has I complete them!
 
 use std::marker::PhantomData;
 
