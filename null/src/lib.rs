@@ -1,20 +1,24 @@
 //! # Assignment
 //! Ian Guy 2022 HW4
-//! * Fix the `NullCache` type to be able to carry
-//!   its item type. This will involve the use of `PhantomData`.
+
 //!
 //! * Fix the `capacity()` method to correctly report the
 //!   capacity. Be careful here!
+
+use std::marker::PhantomData;
 
 use cache::*;
 
 /// A "cache" that does not cache anything. Useful
 /// for testing behavior with cache misses.
-pub struct NullCache<I>();
+pub struct NullCache<I>{
+    _marker: PhantomData<I>,
+}
 
 impl<I> Default for NullCache<I> {
     fn default() -> Self {
-        todo!()
+        let _marker = PhantomData::<I>;
+        NullCache { _marker }
     }
 }
 
@@ -35,7 +39,7 @@ impl<K, I> Cache<K> for NullCache<I> {
 
     /// This cache has zero capacity.
     fn capacity(&self) -> Option<usize> {
-        todo!()
+        None
     }
 }
 
