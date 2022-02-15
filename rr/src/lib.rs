@@ -1,7 +1,6 @@
 //! # Assignment
 //! Ian Guy 2022 HW4
 
-//! * Comment `test_rr()`.
 use cache::*;
 
 use std::collections::HashMap;
@@ -87,19 +86,27 @@ impl<K: Hash + Eq + Clone, I> RrCache<K, I> {
 
 #[test]
 fn test_rr() {
+    // Creates cache, and an rng to be used for testing.
     let mut rr = RrCache::new(3);
     let rng = Rng::with_seed(0x12345678);
+    // Insert three items into the new cache.
     rr.insert("a", 0u8);
     rr.insert("b", 1);
     rr.insert("c", 2);
+    // Verify they return properly.
     assert_eq!(Some(&mut 0), rr.retrieve(&"a"));
     assert_eq!(Some(&mut 1), rr.retrieve(&"b"));
     assert_eq!(Some(&mut 2), rr.retrieve(&"c"));
+    // Randomly generate a key in the size range (right now, 0 to 3).
+    // Let k_i_d equal the item at the randomly generated key.
     let i_d = rng.usize(0..3);
     let k_i_d = rr.elems[i_d].0;
+    // Insert a new item with a new key. Make sure the i_d lines up and is populated out here.
     rr.insert("d", 3);
     assert_eq!(rr.elems[i_d], ("d", 3));
+    // Check to make sure key "d" has 3 as it's item.
     assert_eq!(Some(&mut 3), rr.retrieve(&"d"));
+    // Make sure "e" or some other k_i_d does not exist. 
     assert!(rr.retrieve(&"e").is_none());
     assert!(rr.retrieve(&k_i_d).is_none());
 }
