@@ -1,9 +1,6 @@
 //! # Assignment
-//!
-//! * Finish the definition of `insert()`.
-//!
-//! * Finish the definition of `retrieve()`.
-//!
+//! Ian Guy 2022 HW4
+
 //! * Comment `test_rr()`.
 use cache::*;
 
@@ -64,7 +61,9 @@ impl<K: Hash + Eq + Clone, I> RrCache<K, I> {
             self.elems.push((key.clone(), item));
             n
         } else {
-            todo!()
+            let i_d = self.rng.usize(0..n);
+            self.elems[i_d] = (key.clone(), item);
+            i_d
         };
         self.map.insert(key, i);
     }
@@ -73,7 +72,11 @@ impl<K: Hash + Eq + Clone, I> RrCache<K, I> {
     pub fn retrieve(&mut self, key: &K) -> Option<&mut I> {
         let &i = self.map.get(key)?;
         let (ref ekey, ref mut item) = self.elems[i];
-        todo!()
+        if ekey == key {
+            Some(item)
+        }else{
+            None
+        }
     }
 
     /// Report the capacity of the cache.
