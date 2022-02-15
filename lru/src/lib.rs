@@ -1,10 +1,6 @@
 //! # Assignment
-//!
-//! * Add a comment at the indicated place in the
-//!   `advance_time()` method describing why `checked_sub()`
-//!   is necessary here.
-//!
-//! * Finish the definition of `insert()`.
+//! Ian Guy 2022 HW4
+
 use cache::*;
 
 use std::hash::Hash;
@@ -37,7 +33,10 @@ where
 {
     fn advance_time(&mut self) -> u64 {
         let t = self.time;
-        // XXX Comment this.
+        // I believe the reason that you're checking sub is to make sure that
+        // you're not allowing underflow to occur. If you wrap around after filling
+        // the cache, you may end up at 0, where 0 - 1 in checked_sub I believe
+        // will return false.
         self.time = t.checked_sub(1).unwrap();
         t
     }
@@ -65,7 +64,8 @@ where
             // Find an index for the item in the store and
             // save it there. No need to evict, since
             // there's still room.
-            todo!()
+            self.store.push(item);
+            n
         } else {
             let (_, (t0, index)) = self.usage.pop().unwrap();
             assert!(t0 > t);
