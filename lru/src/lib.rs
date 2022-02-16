@@ -94,14 +94,18 @@ where
 
 #[test]
 fn test_lru() {
+    // Creates cache, overpopulates it.
     let mut lru = LRU::new(3);
     lru.insert("a", 0u8);
     lru.insert("b", 1);
     lru.insert("c", 2);
     lru.insert("d", 3);
+    // Make sure "a" no longer exists, and that "b" still exists.
     assert!(lru.retrieve(&"a").is_none());
     assert_eq!(Some(&mut 1), lru.retrieve(&"b"));
+    // Insert a new item.
     lru.insert("e", 4);
+    // As "c" is now the last accessed, make sure it was removed instead of "b".
     assert_eq!(Some(&mut 1), lru.retrieve(&"b"));
     assert!(lru.retrieve(&"c").is_none());
 }

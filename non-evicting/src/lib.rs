@@ -40,11 +40,13 @@ impl<K: Hash + Eq, I> NonEvictingCache<K, I> {
 
 #[test]
 fn test_non_evicting() {
+    // Creates cache, populates it.
     let mut nev = NonEvictingCache::new(3);
     nev.insert("a", 0u8);
     nev.insert("b", 1);
     nev.insert("c", 2);
     nev.insert("d", 3);
+    // Check cache to see if all items were added.
     assert_eq!(Some(&mut 0), nev.retrieve(&"a"));
     assert_eq!(Some(&mut 1), nev.retrieve(&"b"));
     assert_eq!(Some(&mut 2), nev.retrieve(&"c"));

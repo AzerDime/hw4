@@ -86,7 +86,7 @@ impl<K: Hash + Eq + Clone, I> RrCache<K, I> {
 
 #[test]
 fn test_rr() {
-    // Creates cache, and an rng to be used for testing.
+    // Creates cache, and a random number to be used for testing.
     let mut rr = RrCache::new(3);
     let rng = Rng::with_seed(0x12345678);
     // Insert three items into the new cache.
